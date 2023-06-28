@@ -1,0 +1,87 @@
+﻿<br />
+<div class="d-flex justify-content-between">
+    <form>
+        <div class="form-group d-flex align-items-center mr-5">
+            <label for="staticEmail" class="d-flex" style="gap: 10px;">Mã</label>
+            <div class="">
+                <input type="text" class="form-control" id="staticEmail" placeholder="Mã">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            </div>
+        </div>
+    </form>
+    <form>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            </div>
+        </div>
+    </form>
+    <form>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+<table class="table" style="height: 500px; display: block; overflow-y: auto;">
+    <thead>
+        <tr>
+            <th>MaID</th>
+            <th>Ten</th>
+            <th>NgaySinh</th>
+            <th>DiaChi</th>
+            <th>PassPort</th>
+            <th>NgayCap</th>
+            <th>DienThoai</th>
+            <th>DiDong</th>
+            <th>Fax</th>
+            <th>Email</th>
+            <th>TaiKhoanNH</th>
+            <th>TenNH</th>
+            <th>LoaiKH</th>
+            <th>HanTT</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaID</td>
+                <td>@item.Ten</td>
+                <td>@item.NgaySinh</td>
+                <td>@item.DiaChi</td>
+                <td>@item.PassPort</td>
+                <td>@item.NgayCap</td>
+                <td>@item.DienThoai</td>
+                <td>@item.DiDong</td>
+                <td>@item.Fax</td>
+                <td>@item.Email</td>
+                <td>@item.TaiKhoanNH</td>
+                <td>@item.TenNH</td>
+                <td>@item.LoaiKH</td>
+                <td>@item.HanTT</td>
+            </tr>
+        }
+    </tbody>
+</table>
