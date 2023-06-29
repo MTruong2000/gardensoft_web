@@ -139,13 +139,117 @@ namespace gardensoft.Controllers
             }
             catch (Exception ex)
             {
-                string result = "" + ex;
+                string result = ex.Message;
                 TempData["result"] = result;
                 return RedirectToAction("Input");
             }
         }
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult ExportFile()
+        {
+            string sqlConnect = "Data Source=DESKTOP-AH3TGNG;Initial Catalog=QLKH;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(sqlConnect))
+            {
+                connection.Open();
+
+                string sqlQuery = "SELECT * FROM KHACHHANG";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ToExcel(reader, "QLKH");
+                    }
+                }
+            }
+            TempData["result"] = "Export file thành công!!!";
+
+            return RedirectToAction("Input");
+        }
+
+        private void ToExcel(SqlDataReader reader, string baseFileName)
+        {
+            Microsoft.Office.Interop.Excel.Application excel;
+            Microsoft.Office.Interop.Excel.Workbook workbook;
+            Microsoft.Office.Interop.Excel.Worksheet worksheet;
+
+            try
+            {
+                excel = new Microsoft.Office.Interop.Excel.Application();
+                excel.Visible = false;
+                excel.DisplayAlerts = false;
+
+                string fileName = GetUniqueFileName(baseFileName);
+                workbook = excel.Workbooks.Add(Type.Missing);
+                worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.ActiveSheet;
+                worksheet.Name = "Quản lý khách hàng";
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    worksheet.Cells[1, i + 1] = reader.GetName(i);
+                }
+
+                int row = 2;
+
+                while (reader.Read())
+                {
+                    for (int col = 0; col < reader.FieldCount; col++)
+                    {
+                        worksheet.Cells[row, col + 1] = "'" + reader.GetValue(col).ToString();
+                    }
+                    row++;
+                }
+
+                workbook.SaveAs(fileName);
+                workbook.Close();
+                excel.Quit();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+        }
+
+        private string GetUniqueFileName(string baseFileName)
+        {
+            string fileExtension = Path.GetExtension(baseFileName);
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(baseFileName);
+
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            string uniqueFileName = fileNameWithoutExtension;
+            int count = 1;
+
+            while (System.IO.File.Exists(Path.Combine(path, uniqueFileName + fileExtension + ".xlsx")))
+            {
+                uniqueFileName = $"{fileNameWithoutExtension} ({count})";
+                count++;
+            }
+
+            return Path.Combine(path, uniqueFileName + fileExtension + ".xlsx");
+        }
+
+
+        private void ReleaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                throw ex;
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

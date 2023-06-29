@@ -41,9 +41,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.2.6, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
+            },
+            "ExcelDataReader": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
+            "ExcelDataReader.DataSet": {
+              "target": "Package",
+              "version": "[3.6.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

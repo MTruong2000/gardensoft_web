@@ -13,16 +13,12 @@
         <div class="p-3 mb-2 bg-success text-emphasis-success text-light">Thêm mới</div>
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")"
-                   onclick="makeActive(this)" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Input" ? "active" : "")"
                    onclick="makeActive(this)" asp-area="" asp-controller="Home" asp-action="Input">Nhập liệu</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Import" ? "active" : "")"
-                   onclick="makeActive(this)" asp-area="" asp-controller="Home" asp-action="Import">Import File</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")"
+                   onclick="makeActive(this)" asp-area="" asp-controller="Import" asp-action="Index">Import File</a>
             </li>
         </ul>
     </header>
