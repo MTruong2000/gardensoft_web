@@ -1,48 +1,136 @@
 ﻿<br />
-<div class="d-flex justify-content-between">
-    <form>
-        <div class="form-group d-flex align-items-center mr-5">
-            <label for="staticEmail" class="d-flex" style="gap: 10px;">Mã</label>
-            <div class="">
-                <input type="text" class="form-control" id="staticEmail" placeholder="Mã">
+<form method="post" action="/Home/PostInput">
+    <div class="d-flex justify-content-between">
+        <div>
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <label for="maID" class="col-form-label">Mã:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="maID" name="maID" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                    <div class="col-5">
+                    <label for="diaChi" class="col-form-label">Địa chỉ:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="diaChi" name="diaChi" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="dienThoai" class="col-form-label">Điện thoại:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="dienThoai" name="dienThoai" class="form-control">
+                </div>
+            </div>
+                <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="email" class="col-form-label">Email:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="email" name="email" class="form-control" placeholder="abc@gmail.com">
+                </div>
+            </div>
+                <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="loaiKH" class="col-form-label">Loại khách hàng:</label>
+                </div>
+                <div class="col-7">
+                    <select class="form-select" name="loaiKH" aria-label="Default select example">
+                        <option value="u" selected>Khác</option>
+                        <option value="vip">Vip</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+        <div>
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <label for="ten" class="col-form-label">Tên *:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="ten" name="ten" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="passPort" class="col-form-label">ID/Passport:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="passPort" name="passPort" class="form-control" placeholder="9999999">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="diDong" class="col-form-label">Di động:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="diDong" name="diDong" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="taiKhoanNH" class="col-form-label">Tài khoản ngân hàng:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="taiKhoanNH" name="taiKhoanNH" class="form-control" placeholder="03111xxxx">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="hanTT" class="col-form-label">Hạn thanh toán:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="hanTT" name="hanTT" class="form-control">
+                </div>
             </div>
         </div>
-    </form>
-    <form>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+        <div>
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <label for="ngaySinh" class="col-form-label">Ngày sinh:</label>
+                </div>
+                <div class="col-7">
+                    <input type="date" id="ngaySinh" name="ngaySinh" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="ngayCap" class="col-form-label">Ngày cấp:</label>
+                </div>
+                <div class="col-7">
+                    <input type="date" id="ngayCap" name="ngayCap" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="fax" class="col-form-label">Fax:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="fax" name="fax" class="form-control">
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-5">
+                    <label for="tenNH" class="col-form-label">Tên ngân hàng:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" id="tenNH" name="tenNH" class="form-control" placeholder="Vietcombank, ACB, ...">
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-            </div>
-        </div>
-    </form>
-    <form>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-            </div>
-        </div>
-    </form>
-</div>
+    </div>
+    <div class="text-danger mt-3 text-center">
+        <p>@TempData["result"]</p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary m-3">Lưu</button>
+        <button class="btn btn-primary m-3">Export File</button>
+    </div>
+</form>
 <br />
 <table class="table" style="height: 500px; display: block; overflow-y: auto;">
     <thead>
@@ -64,7 +152,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in ViewData["KhachhangList"] as List<KhachHang> ?? new List<KhachHang>())
         {
             <tr>
                 <td>@item.MaID</td>

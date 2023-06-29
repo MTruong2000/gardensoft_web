@@ -1,10 +1,16 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
+using System.Reflection.PortableExecutable;
+using System.Xml.Linq;
 
 using gardensoft.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace gardensoft.Controllers
 {
@@ -65,10 +71,81 @@ namespace gardensoft.Controllers
                 }
                 connection.Close();
             }
-            return View("Input", khachhangList);
+            ViewData["KhachhangList"] = khachhangList;
+            return View("Input");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [HttpPost]
+        public IActionResult PostInput()
+        {
+            try
+            {
+                KhachHang kh = new KhachHang();
+
+                kh.MaID = HttpContext.Request.Form["maID"];
+                kh.Ten = HttpContext.Request.Form["ten"];
+                kh.NgaySinh = DateTime.ParseExact(HttpContext.Request.Form["ngaySinh"] + "", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                kh.DiaChi = HttpContext.Request.Form["diaChi"];
+                kh.PassPort = HttpContext.Request.Form["passPort"];
+                kh.NgayCap = DateTime.ParseExact(HttpContext.Request.Form["ngayCap"] + "", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                kh.DienThoai = HttpContext.Request.Form["dienThoai"];
+                kh.DiDong = HttpContext.Request.Form["diDong"];
+                kh.Fax = HttpContext.Request.Form["fax"];
+                kh.Email = HttpContext.Request.Form["email"];
+                kh.TaiKhoanNH = HttpContext.Request.Form["taiKhoanNH"];
+                kh.TenNH = HttpContext.Request.Form["tenNH"];
+                kh.LoaiKH = HttpContext.Request.Form["loaiKH"];
+                kh.HanTT = HttpContext.Request.Form["hanTT"];
+
+
+                string sqlConnect = "Data Source=DESKTOP-AH3TGNG;Initial Catalog=QLKH;Integrated Security=True";
+                using (SqlConnection connection = new SqlConnection(sqlConnect))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand("InsertKhachHang", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@MaID", kh.MaID);
+                        command.Parameters.AddWithValue("@Ten", kh.Ten);
+                        command.Parameters.AddWithValue("@NgaySinh", kh.NgaySinh);
+                        command.Parameters.AddWithValue("@DiaChi", kh.DiaChi);
+                        command.Parameters.AddWithValue("@PassPort", kh.PassPort);
+                        command.Parameters.AddWithValue("@NgayCap", kh.NgayCap);
+                        command.Parameters.AddWithValue("@DienThoai", kh.DienThoai);
+                        command.Parameters.AddWithValue("@DiDong", kh.DiDong);
+                        command.Parameters.AddWithValue("@Fax", kh.Fax);
+                        command.Parameters.AddWithValue("@Email", kh.Email);
+                        command.Parameters.AddWithValue("@TaiKhoanNH", kh.TaiKhoanNH);
+                        command.Parameters.AddWithValue("@TenNH", kh.TenNH);
+                        command.Parameters.AddWithValue("@LoaiKH", kh.LoaiKH);
+                        command.Parameters.AddWithValue("@HanTT", kh.HanTT);
+
+                        SqlParameter successParam = new SqlParameter("@Success", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        command.Parameters.Add(successParam);
+
+                        command.ExecuteNonQuery();
+
+                        bool success = (bool)successParam.Value;
+                        string resultMessage = success ? "Thêm thành công!" : "Đã tồn tại mã ID!!!";
+
+                        TempData["result"] = resultMessage;
+                        return RedirectToAction("Input");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string result = "" + ex;
+                TempData["result"] = result;
+                return RedirectToAction("Input");
+            }
+        }
+
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
