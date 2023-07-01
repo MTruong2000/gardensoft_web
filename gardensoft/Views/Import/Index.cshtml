@@ -1,5 +1,83 @@
-﻿<form method="post" enctype="multipart/form-data" action="/Import/ImportFile">
+﻿@{
+    var khachhangList = ViewData["KhachhangList"] as List<KhachHang>;
+}
+
+<form method="post" enctype="multipart/form-data" action="/Import/ImportExcel">
     <input type="file" name="excelFile" accept=".xlsx, .xls">
     <button type="submit" class="btn btn-primary m-3">Lưu</button>
 </form>
+<div class="text-danger mt-3 text-center">
+    <p>@TempData["result"]</p>
+</div>
+<br />
 
+@if (khachhangList != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã ID</th>
+                <th>Tên</th>
+                <th>Ngày sinh</th>
+                <th>Địa chỉ</th>
+                <th>Passport</th>
+                <th>Ngày cấp</th>
+                <th>Điện thoại</th>
+                <th>Di động</th>
+                <th>Fax</th>
+                <th>Email</th>
+                <th>Tài khoản NH</th>
+                <th>Tên NH</th>
+                <th>Loại KH</th>
+                <th>Hạn thanh toán</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var khachhang in khachhangList)
+            {
+                <tr>
+                    <td>@khachhang.MaID</td>
+                    <td>@khachhang.Ten</td>
+                    <td>@khachhang.NgaySinh</td>
+                    <td>@khachhang.DiaChi</td>
+                    <td>@khachhang.PassPort</td>
+                    <td>@khachhang.NgayCap</td>
+                    <td>@khachhang.DienThoai</td>
+                    <td>@khachhang.DiDong</td>
+                    <td>@khachhang.Fax</td>
+                    <td>@khachhang.Email</td>
+                    <td>@khachhang.TaiKhoanNH</td>
+                    <td>@khachhang.TenNH</td>
+                    <td>@khachhang.LoaiKH</td>
+                    <td>@khachhang.HanTT</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <a href="/Import/ImportExcel?page=@(ViewBag.CurrentPage - 1)" class="page-link">Previous</a>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a href="/Import/ImportExcel?page=@i" class="page-link @(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <a href="/Import/ImportExcel?page=@(ViewBag.CurrentPage + 1)" class="page-link">Next</a>
+            }
+        </div>
+    }
+
+    <div class="d-flex justify-content-center">
+        <form method="post" action="/Import/insertDataFromExcel">
+            <button class="btn btn-primary m-3" type="submit">Submit</button>
+        </form>
+    </div>
+}

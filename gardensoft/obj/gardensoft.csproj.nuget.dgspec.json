@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rikai-minhtruong\\Desktop\\123\\gardensoft\\gardensoft\\gardensoft.csproj": {}
+    "C:\\Users\\PC\\Desktop\\gardensoft_web\\gardensoft\\gardensoft.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rikai-minhtruong\\Desktop\\123\\gardensoft\\gardensoft\\gardensoft.csproj": {
+    "C:\\Users\\PC\\Desktop\\gardensoft_web\\gardensoft\\gardensoft.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rikai-minhtruong\\Desktop\\123\\gardensoft\\gardensoft\\gardensoft.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\gardensoft_web\\gardensoft\\gardensoft.csproj",
         "projectName": "gardensoft",
-        "projectPath": "C:\\Users\\rikai-minhtruong\\Desktop\\123\\gardensoft\\gardensoft\\gardensoft.csproj",
-        "packagesPath": "C:\\Users\\rikai-minhtruong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rikai-minhtruong\\Desktop\\123\\gardensoft\\gardensoft\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\gardensoft_web\\gardensoft\\gardensoft.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\gardensoft_web\\gardensoft\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rikai-minhtruong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,9 +57,21 @@
               "target": "Package",
               "version": "[3.6.0, )"
             },
+            "Microsoft.AspNetCore.Http.Extensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0-preview.4.23259.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "PagedList.Mvc": {
+              "target": "Package",
+              "version": "[4.5.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",

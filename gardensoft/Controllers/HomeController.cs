@@ -2,15 +2,10 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
-using System.Reflection.PortableExecutable;
-using System.Xml.Linq;
 
 using gardensoft.Models;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace gardensoft.Controllers
 {
@@ -28,16 +23,11 @@ namespace gardensoft.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult Input()
+        public IActionResult Input(int page = 1, int pageSize = 10)
         {
             List<KhachHang> khachhangList = new List<KhachHang>();
 
-            string sqlConnect = "Data Source=DESKTOP-AH3TGNG;Initial Catalog=QLKH;Integrated Security=True";
+            string sqlConnect = "Data Source=DESKTOP-101QR58;Initial Catalog=QLKH;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(sqlConnect))
             {
                 connection.Open();
@@ -71,9 +61,41 @@ namespace gardensoft.Controllers
                 }
                 connection.Close();
             }
-            ViewData["KhachhangList"] = khachhangList;
+
+            int totalItems = khachhangList.Count;
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            List<KhachHang> pagedKhachHangList = khachhangList
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            using (SqlConnection connection = new SqlConnection(sqlConnect))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("GenerateRandomString", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter randomStringParam = new SqlParameter("@RandomString", SqlDbType.NVarChar, 8)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(randomStringParam);
+                    command.ExecuteNonQuery();
+                    string randomString = randomStringParam.Value.ToString()!;
+
+                    ViewBag.RandomString = randomString;
+                }
+            }
+
+            ViewData["KhachhangList"] = pagedKhachHangList;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
             return View("Input");
         }
+
 
         [HttpPost]
         public IActionResult PostInput()
@@ -98,7 +120,7 @@ namespace gardensoft.Controllers
                 kh.HanTT = HttpContext.Request.Form["hanTT"];
 
 
-                string sqlConnect = "Data Source=DESKTOP-AH3TGNG;Initial Catalog=QLKH;Integrated Security=True";
+                string sqlConnect = "Data Source=DESKTOP-101QR58;Initial Catalog=QLKH;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(sqlConnect))
                 {
                     connection.Open();
@@ -145,9 +167,10 @@ namespace gardensoft.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult ExportFile()
         {
-            string sqlConnect = "Data Source=DESKTOP-AH3TGNG;Initial Catalog=QLKH;Integrated Security=True";
+            string sqlConnect = "Data Source=DESKTOP-101QR58;Initial Catalog=QLKH;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(sqlConnect))
             {
                 connection.Open();
